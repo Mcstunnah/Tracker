@@ -1,0 +1,532 @@
+
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<script src='/_vendor/jquery-3.3.1.min.js'></script>
+		<style type="text/css">
+			html {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				font-family: 'Roboto', sans-serif;
+				color: white;
+				background-color: background-color: rgba(0, 0, 0, 0);*/
+			}
+			body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+
+			#fortniteScout {
+				width: inherit;
+				height: 24px;
+				font-size: 17px;
+				text-align: center;
+				box-sizing: inherit;
+				display: block;
+                position: absolute;
+                top: 0;
+				background-image: url(/_images/logo_hori.png);
+				background-size: 31%;
+				background-position: right center;
+				background-repeat: no-repeat;
+                /*opacity: 0.0;*/
+			}
+
+			.bounds {
+				display: flex;
+				flex-direction: column;
+				width: 473px;
+				height: 124px;
+				overflow: hidden;
+				box-sizing: border-box;
+			}
+
+			#fortniteScoutAttract {
+				width: 453px;
+				height: 44px;
+				margin-top: 80px;
+				background-image: url(/_images/fortnite-scout-logo_hori.png);
+				background-size: 65%;
+				background-position: center bottom;
+				background-repeat: no-repeat;
+				position: fixed;
+				text-align: right;
+			}
+			#row1 {
+				display: flex;
+				flex-direction: row;
+				width: 453px;
+				height: 24px;
+				margin-top: 56px;
+				box-sizing: inherit;
+			}
+			#row2 {
+				display: flex;
+				flex-direction: row;
+				width: 453px;
+				height: 34px;
+				box-sizing: inherit;
+			}
+			#statsUrl {
+				width: 432px;
+				height: 23px;
+				line-height: 23px;
+				margin-top: 80px;
+                margin-left: 21px;
+				position: fixed;
+				text-align: center;
+                background-color: black;
+                color: #ffe154;
+                letter-spacing: 0.7px;
+			}
+			.animateStatsUrl {
+				animation-name: animateStatsUrl;
+				animation-delay: 3.00s;
+				animation-duration: 8.0s;
+				animation-fill-mode: both;
+                transform-origin: top;
+			}
+			@keyframes animateStatsUrl {
+				0% { transform: scaleY(0.0); }
+				10% { transform: scaleY(1.0); }
+				50% { color: #ffe154; }
+                65% { color: white; }
+				90% { transform: scaleY(1.0); }
+				100% { transform: scaleY(0.0); color: white;}
+			}
+
+			.icon {
+				width: 18px;
+				height: 24px;
+				box-sizing: inherit;
+				background-image: url(/_images/icon_trophy.png);
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+
+			.bar {
+				display: flex;
+				flex-direction: row-reverse;
+				width: 432px;
+				height: 24px;
+				margin-left: 3px;
+				background-color: rgba(0,1,36,0.6);
+				box-sizing: inherit;
+			}
+			.barTextOverlay {
+				display: block;
+				flex-direction: row;
+				width: calc(100% - 20px);
+				height: 24px;
+				font-size: 17px;
+				font-weight: bold;
+				letter-spacing: 0.5px;
+				line-height: 24px;
+				padding-left: 16px;
+				position: absolute;
+                left: 16px;
+				box-sizing: inherit;
+                text-shadow: 0px 0px 2px black;
+			}
+			.barSection {
+				box-sizing: inherit;
+			}
+
+			.bgTop25 {
+				background-color: #EACA40;
+			}
+			.bgTop10 {
+				background-color: #F19827;
+			}
+			.bgWin {
+				background-color: #FEE59D;
+			}
+
+			.colorTop25 {
+				color: #EACA40;
+			}
+			.colorTop10 {
+				color: #F19827;
+			}
+			.colorWin {
+				color: #FEE59D;
+			}
+
+			.legend {
+				display: flex;
+				flex-direction: row-reverse;
+				justify-content: space-between;
+				width: 432px;
+				margin-left: 3px;
+				margin-top: 4px;
+				box-sizing: inherit;
+			}
+			.legendSection {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				width: calc((100% / 4) - 3px);
+				height: 40px;
+				background-color: rgba(0,1,36,0.6);
+				box-sizing: inherit;
+                text-shadow: 0px 0px 2px black;
+			}
+			.legendSectionThird {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				width: calc((100% / 3) - 3px);
+				height: 40px;
+				background-color: rgba(0,1,36,0.6);
+				box-sizing: inherit;
+                text-shadow: 0px 0px 2px black;
+			}
+			.legendSectionSixth {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				width: calc((100% / 6) - 3px);
+				height: 40px;
+				background-color: rgba(0,1,36,0.6);
+				box-sizing: inherit;
+                text-shadow: 0px 0px 2px black;
+			}
+			.legendTitle {
+				font-size: 15px;
+                font-weight: 700;
+			}
+			.legendValue {
+				font-size: 18px;
+			}
+			.legendValueSpaced {
+				font-size: 18px;
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+			}
+
+			.smallText {
+				font-size: 12px;
+				color: rgba(255,255,255,0.7);
+			}
+
+			.hide {
+				visibility: hidden;
+			}
+
+			.animateIn {
+				animation-name: animateIn;
+				animation-delay: 1.00s;
+				animation-duration: 0.50s;
+				animation-fill-mode: both;
+				animation-timing-function: cubic-bezier(0.5, 1, 0.25, 1);
+			}
+			@keyframes animateIn {
+				0% { transform: scaleX(0.0); }
+				100% { transform: scaleX(1.0); }
+			}
+
+			.animateOut {
+				animation-name: animateOut;
+				animation-duration: 0.50s;
+				animation-fill-mode: both;
+				animation-timing-function: cubic-bezier(0.5, 1, 0.25, 1);
+			}
+			@keyframes animateOut {
+				0% { transform: scaleX(1.0); }
+				100% { transform: scaleX(0.0); }
+			}
+
+			.matchPlacementAnimateIn {
+				animation-name: matchPlacementAnimateIn;
+				animation-duration: 0.15s;
+				animation-fill-mode: both;
+				animation-timing-function: linear;
+				transform-origin: right;
+			}
+			@keyframes matchPlacementAnimateIn {
+				0% { transform: scaleX(0.0); }
+				100% { transform: scaleX(1.0); }
+			}
+
+			.fadeIn {
+				animation-name: fadeIn;
+				animation-delay: 1.00s;
+				animation-duration: 0.50s;
+				animation-fill-mode: both;
+				animation-timing-function: cubic-bezier(0.5, 1, 0.25, 1);
+			}
+			@keyframes fadeIn {
+				0% { opacity: 0.0; }
+				100% { opacity: 1.0; }
+			}
+
+			.fadeOut {
+				animation-name: fadeOut;
+				animation-delay: 1.00s;
+				animation-duration: 0.50s;
+				animation-fill-mode: both;
+				animation-timing-function: cubic-bezier(0.5, 1, 0.25, 1);
+			}
+			@keyframes fadeOut {
+				0% { opacity: 1.0; }
+				100% { opacity: 0.0; }
+			}
+
+			.delay1 {
+				animation-delay: 1.15s;
+			}
+			.delay2 {
+				animation-delay: 1.30s;
+			}
+			.delay3 {
+				animation-delay: 1.45s;
+			}
+		</style>
+
+		<script>	var platform = "PlatformPlayStation4";	var playerName = "DuttyMFD";	var ignoreMatchesBefore = 1546879741199;  var screenshotMode = "false";</script>
+		<script type="text/javascript">
+			function updatePlayerHistory() {
+				galite('send', 'event', 'streamTools', 'updateHealthbarChart');
+				$.ajax({
+					type: "GET",
+					dataType: "json",
+					url: "/_code/match-history.php?playerName=" + playerName + '&platform=' + platform,
+					success: function(data) {
+						var timeNow = new Date().getTime();
+
+						var todaysProgressMatchesPlayedAll = 0;
+						var todaysProgressKillsAll = 0;
+						var todaysProgressWinsAll = 0;
+                        var todaysProgressWinPercent = 0;
+						var todaysProgressWinStreak = 0;
+						var todaysProgressTop10All = 0;
+						var todaysProgressTop25All = 0;
+
+						data.reverse().forEach(function(historicalMatch) {
+							var thisMatchEntryWins = 0;
+							var thisMatchEntryTop10s = 0;
+							var thisMatchEntryTop25s = 0;
+							var thisMatchDNFs = 0;
+
+							thisMatchEntryWins = historicalMatch['winCount'];
+							thisMatchEntryTop10s = historicalMatch['top10Placements'];
+							thisMatchEntryTop25s = historicalMatch['top25Placements'];
+							thisMatchDNFs = historicalMatch['matchCount'] - thisMatchEntryWins - thisMatchEntryTop10s - thisMatchEntryTop25s;
+
+							if (historicalMatch['timeStamp'] > ignoreMatchesBefore) { // Is this game from this session?
+								todaysProgressMatchesPlayedAll += historicalMatch['matchCount'];
+								todaysProgressWinsAll += historicalMatch['winCount'];
+								todaysProgressTop10All += historicalMatch['top10Placements'];
+								todaysProgressTop25All += historicalMatch['top25Placements'];
+								todaysProgressKillsAll += historicalMatch['killCount'];
+                                if (historicalMatch['winCount'] == historicalMatch['matchCount']) {
+                                    todaysProgressWinStreak += historicalMatch['winCount'];
+                                } else {
+                                    todaysProgressWinStreak = 0;
+                                }
+							}
+						});
+                        
+                        var conditionalWinStreakClass = 'forKDR';
+                        if (todaysProgressWinStreak > 0) {
+                            conditionalWinStreakClass = 'colorWin';
+                        }
+                        
+                        //screenshot mode for testing
+                        //if (screenshotMode == "true") {
+                        //    todaysProgressMatchesPlayedAll = 23;
+                        //    todaysProgressKillsAll = 89;
+                        //    todaysProgressWinsAll = 6;
+                        //    todaysProgressTop10All = 7;
+                        //    todaysProgressTop25All = 5;
+				        //    todaysProgressWinStreak = 3;
+                        //    conditionalWinStreakClass = 'colorWin';
+                        //}
+
+						// Create day progress chart and prepend it to new html var.
+						if (todaysProgressKillsAll > 0 && (todaysProgressMatchesPlayedAll - todaysProgressWinsAll > 0)) {
+							var todaysKDR = (todaysProgressKillsAll / (todaysProgressMatchesPlayedAll - todaysProgressWinsAll));
+							if (todaysKDR >= 1) {
+								var todaysKDR = todaysKDR.toFixed(1);
+							} else {
+								var todaysKDR = todaysKDR.toFixed(2);
+							}
+						} else {
+							var todaysKDR = 0;
+						}
+                        if (todaysProgressMatchesPlayedAll - todaysProgressWinsAll == 0) {
+                            todaysKDR = todaysProgressKillsAll.toFixed(2);
+                        }
+                        if (todaysProgressMatchesPlayedAll > 0) {
+                            todaysProgressWinPercent = ((todaysProgressWinsAll / todaysProgressMatchesPlayedAll) * 100).toFixed(2);
+                        } else {
+                            todaysProgressWinPercent = '0.00';
+                        }
+
+						// Rebuild the bar!
+						var html = '';
+						html += '<div id="fortniteScoutAttract" class="animateOut">Updating...</div>';
+						html += '<div id="row1" class="animateIn">';
+						html += '	<div class="icon"></div>';
+						html += '	<div class="bar">';
+						html += '		<div class="barSection bgWin matchPlacementAnimateIn delay1" style="width:'+Math.round((todaysProgressWinsAll / todaysProgressMatchesPlayedAll) * 100)+'%;"></div>';
+						html += '		<div class="barSection bgTop10 matchPlacementAnimateIn delay2" style="width:'+Math.round((todaysProgressTop10All / todaysProgressMatchesPlayedAll) * 100)+'%;"></div>';
+						html += '		<div class="barSection bgTop25 matchPlacementAnimateIn delay3" style="width: '+Math.round((todaysProgressTop25All / todaysProgressMatchesPlayedAll) * 100)+'%;"></div>';
+						html += '		<div class="barTextOverlay">';
+						html += '		<span id="titleText">W/L This Session ('+todaysProgressWinPercent+'%)</span>';
+						html += '		<span id="fortniteScout"></span>';
+						html += '		</div>';
+						html += '	</div>';
+						html += '</div>';
+						html += '<div id="row2" class="animateIn">';
+						html += '	<div class="icon hide"></div>';
+						html += '	<div class="legend">';
+						html += '		<div class="legendSectionSixth '+conditionalWinStreakClass+'">';
+						html += '			<span class="legendTitle">Streak</span>';
+						html += '			<span class="legendValue">'+todaysProgressWinStreak+'</span>';
+						html += '		</div>';
+						html += '		<div class="legendSectionThird forKDR">';
+						//html += '			<span class="legendTitle">Wins</span>';
+						//html += '			<span class="legendValue">'+todaysProgressWinsAll+'</span>';
+						html += '			<span class="legendTitle"><span class="colorTop25">Top 25%</span> <span class="colorTop10">10%</span> <span class="colorWin">Wins</span></span>';
+						html += '			<span class="legendValueSpaced"><span class="colorTop25">'+todaysProgressTop25All+'</span><span class="colorTop10">'+todaysProgressTop10All+'</span><span class="colorWin">'+todaysProgressWinsAll+'</span></span>';
+						html += '		</div>';
+						html += '		<div class="legendSectionThird forKDR">';
+						html += '			<span class="legendTitle">K/D</span>';
+						html += '			<span class="legendValue"><span class="smallText">'+todaysProgressKillsAll+'/'+(todaysProgressMatchesPlayedAll - todaysProgressWinsAll)+'(</span>'+todaysKDR+'<span class="smallText">)</span></span>';
+						html += '		</div>';
+						html += '		<div class="legendSectionSixth forKDR">';
+						html += '			<span class="legendTitle">Matches</span>';
+						html += '			<span class="legendValue">'+todaysProgressMatchesPlayedAll+'</span>';
+						html += '		</div>';
+						html += '	</div>';
+						html += '</div>';
+						html += '<div id="statsUrl" class="animateStatsUrl">';
+						html += 'FortniteScout.com/playstation/DuttyMFD';
+						html += '</div>';
+
+						// Display new html in DOM
+						var historyContainerAll = document.getElementById('bounds');
+						if (historyContainerAll != null) {historyContainerAll.innerHTML = html;}
+					},
+					error: function() {
+						var html = '';
+						html += '<div id="fortniteScoutAttract">Server error, retrying soon..</div>';
+
+						// Display new html in DOM
+						var historyContainerAll = document.getElementById('bounds');
+						if (historyContainerAll != null) {historyContainerAll.innerHTML = html;}
+					}
+				});
+			}
+
+			function startTimer(duration) {
+				var timer = duration, minutes, seconds;
+				setInterval(function () {
+					if (--timer < 0) {
+						animateAndUpdateView();
+						timer = duration;
+					}
+				}, 1000);
+			}
+
+			jQuery(function ($) {
+				var threeMinutes = (60 * 3) + 6;
+				startTimer(threeMinutes);
+			});
+
+			function animateAndUpdateView() {
+				//Step 1: Animate out.
+				var row1 = document.getElementById("row1");
+				if (row1 != null) {row1.className = "animateOut";}
+
+				var row2 = document.getElementById("row2");
+				if (row2 != null) {row2.className = "animateOut";}
+
+				var fortniteScoutAttract = document.getElementById("fortniteScoutAttract");
+				if (fortniteScoutAttract != null && row1 != null && row2 != null) {fortniteScoutAttract.className = "animateIn";}
+
+				//Step 2: Update and animate in.
+				setTimeout(function () {
+					updatePlayerHistory();
+				}, 3000);
+			}
+            
+            //setInterval( function() {
+            //    var titleText = document.getElementById("titleText");
+            //    var titleBranding = document.getElementById("fortniteScout");
+            //    
+            //    titleText.className = "fadeOut";
+            //    titleBranding.className = "fadeIn";
+            //    setTimeout( function() {
+            //        titleText.className = "fadeIn";
+            //        titleBranding.className = "fadeOut";
+            //    }, 5000);
+            //}, 30000);
+		</script>
+
+		<script>
+			(function(e,t,n,i,s,a,c){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)}
+			;a=t.createElement(i);c=t.getElementsByTagName(i)[0];a.async=true;a.src=s
+			;c.parentNode.insertBefore(a,c)
+			})(window,document,"galite","script","https://cdn.jsdelivr.net/npm/ga-lite@2/dist/ga-lite.min.js");
+
+            var gaUrl = document.location.pathname.replace("DuttyMFD", 'GDPR_ANON');
+            gaUrl = gaUrl.replace('/colors/'+'FEE59D', '');
+            gaUrl = gaUrl.replace('/'+'F19827', '');
+            gaUrl = gaUrl.replace('/'+'EACA40', '');
+			galite('create', 'UA-114833388-1', 'auto');
+			galite('send', 'pageview', gaUrl);
+		</script>
+	</head>
+	<body>
+		<div id="bounds" class="bounds">
+			<div id="fortniteScoutAttract">Updating...</div>
+			<div id="row1">
+				<div class="icon"></div>
+				<div class="bar">
+					<div class="barSection bgWin" style="width: 30%;">
+					</div>
+					<div class="barSection bgTop10" style="width: 30%;">
+					</div>
+					<div class="barSection bgTop25" style="width: 30%;">
+					</div>
+					<div class="barTextOverlay">
+						<span id="titleText">W/L This Session</span>
+                        <span id="fortniteScout"></span>
+					</div>
+				</div>
+			</div>
+			<div id="row2">
+				<div class="icon hide"> <!--for spacing--></div>
+				<div class="legend">
+					<div class="legendSection colorWin">
+						<span class="legendTitle">Win% / Streak</span>
+						<span class="legendValue">##</span>
+					</div>
+					<div class="legendSection forKDR">
+						<span class="legendTitle">25% 10% Win</span>
+						<span class="legendValue">##</span>
+					</div>
+					<div class="legendSection forKDR">
+						<span class="legendTitle">K/D</span>
+						<span class="legendValue"><span class="smallText">###/###(</span>##.#<span class="smallText">)</span></span>
+					</div>
+					<div class="legendSection forKDR">
+						<span class="legendTitle">Matches</span>
+						<span class="legendValue">##</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			animateAndUpdateView();
+		</script>
+	</body>
+</html>
